@@ -1,0 +1,39 @@
+FROM jboss/wildfly:10.0.0.Final
+
+
+
+ADD *.xsl /tmp/
+
+#RUN xsl-transform /opt/jboss/keycloak/standalone/configuration/standalone-ha.xml /tmp/node-identifier.xsl
+
+RUN \
+	java -jar /usr/share/java/saxon.jar \
+	-s:/opt/jboss/wildfly/standalone/configuration/standalone-ha.xml \
+	-xsl:/tmp/jgroups-jdbc.xsl \
+	-o:/opt/jboss/wildfly/standalone/configuration/standalone-ha.xml; 
+
+
+RUN \
+	java -jar /usr/share/java/saxon.jar \
+	-s:/opt/jboss/wildfly/standalone/configuration/standalone.xml \
+	-xsl:/tmp/enableProxy.xsl \
+	-o:/opt/jboss/wildfly/standalone/configuration/standalone.xml; \
+	java -jar /usr/share/java/saxon.jar \
+	-s:/opt/jboss/wildfly/standalone/configuration/standalone-ha.xml \
+	-xsl:/tmp/enableProxy.xsl \
+	-o:/opt/jboss/wildfly/standalone/configuration/standalone-ha.xml; 
+
+#RUN \
+#	java -jar /usr/share/java/saxon.jar \
+#	-s:/opt/jboss/keycloak/standalone/configuration/standalone.xml \
+#	-xsl:/tmp/changeDatabase.xsl \
+#	-o:/opt/jboss/keycloak/standalone/configuration/standalone.xml; \
+#	java -jar /usr/share/java/saxon.jar \
+#	-s:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml \
+#	-xsl:/tmp/changeDatabase.xsl \
+#	-o:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml; 
+	
+
+RUN rm /opt/jboss/wildfly/standalone/configuration/standalone.xml
+
+CMD ["-b", "0.0.0.0", "--server-config", "standalone-ha.xml"]

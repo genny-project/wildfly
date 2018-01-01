@@ -1,0 +1,15 @@
+FROM gennyproject/wildfly:latest 
+MAINTAINER Adam Crow <acrow@crowtech.com.au>
+
+USER root
+ADD standalone-jrebel.sh $JBOSS_HOME/bin/standalone-jrebel.sh
+RUN chmod 777  $JBOSS_HOME/bin/standalone-jrebel.sh
+
+ADD jrebel $JBOSS_HOME/jrebel
+ADD docker-entrypoint-jrebel.sh $HOME/docker-entrypoint-jrebel.sh
+
+RUN chown root:root $JBOSS_HOME
+USER root 
+
+ENTRYPOINT [ "/opt/jboss/docker-entrypoint-jrebel.sh" ]
+CMD ["-b", "0.0.0.0"]
