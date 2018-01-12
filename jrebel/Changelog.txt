@@ -2,6 +2,83 @@
   JRebel Changelog                    
 ********************************************
 
+7.1.4 (20th December 2017)
+
+Feature: added support for Tomcat 8.5.24 and 9.0.2.
+Feature: added support for Jetty 9.4.8.
+Feature: added support for Resin 4.0.55.
+Feature: added support for Liferay 7.0.4.GA5.
+Feature: added support for Spring Boot 2.0.0.M7.
+Feature: added support for IBM Java 8 Service Refresh 5 Fix Pack 5.
+Feature: added support for Struts 2.5.14.
+Feature: added support for Spring Data JPA 2.0.
+Improvement: improved Tomcat startup performance when using signed JAR files on Tomcat 8.0.x.
+Improvement: improved the Spring MVC integration to support renaming @Controller beans.
+Improvement: improved the Spring MVC integration to support adding @Validated to existing controllers.
+Improvement: improved EJB integration on GlassFish 3.x, WebSphere Liberty Profile and WebSphere to support adding new EJBs as JAX-RS endpoints.
+Bug fix: fixed the CodeSource location for classes loaded from JARs using Tomcat WebappClassLoader.
+Bug fix: fixed custom JSF @FacesComponent components getting lost after a reload.
+Bug fix: fixed an issue that in some cases prevented stepping over lines during a debug session.
+Bug fix: fixed a small change in a Spring configuration file causing the reinitialization of the whole CamelContext.
+Bug fix: fixed adding new JAX-RS resource classes when using the ResteasyBootstrap listener.
+Bug fix: fixed property placeholders not being expanded after reloading a Spring bean definition on Hybris.
+Bug fix: fixed a VerifyError when using a finalize interface method in Scala 2.12.
+Bug fix: fixed a rare case where debugger failed to reconnect with the IBM JVM.
+Bug fix: fixed a startup error when -Duser.home property was set to an empty directory on IBM Java 1.6, released after July 2011.
+Bug fix: fixed an issue where the standalone activation dialog left hanging indefinitely while displaying "Checking license status...".
+Bug fix: fixed reloading Spring @Configuration class conditional bean definitions that use the same bean name.
+Bug fix: fixed an IllegalAccessError when calling getEntityPersisters on SessionFactoryImpl on Hibernate 5.2+.
+Bug fix: fixed an integration issue with Tapestry 5 versions older than 5.3.0.
+Bug fix: fixed application startup with some OpenL Ruleservice configurations.
+Bug fix: fixed an issue with injecting a Guice non-singleton bean after changing the signature of its constructor.
+Bug fix: fixed an IllegalAccessException thrown by Hibernate when accessing private fields of a reloaded entity.
+Bug fix: fixed an UnsupportedOperationException when a static or default interface method is evaluated via a debugger.
+Bug fix: fixed an IllegalArgumentException: Invalid method error when when a reloaded method is evaluated via a debugger.
+
+7.1.3 (30th November 2017)
+
+Feature: added support for TomEE 1.7.5.
+Feature: added support for Payara 4.1.2.174.
+Feature: added support for GAE 1.9.59.
+Feature: added support for reloading Spring @ControllerAdvice methods.
+Feature: added support for changing MyBatis mapper entries.
+Bug fix: fixed an issue with cloning an array of a reloaded type when compiled with Eclipse Compiler.
+Bug fix: fixed an integration issue with Spring Boot Actuator 0.5.0.M6.
+Bug fix: fixed Hibernate second level cache not being refreshed on entity reload.
+Bug fix: fixed a regression from JRebel 7.1.2 concerning Spring initialization of complex inner bean hierarchies.
+Bug fix: fixed an issue in Spring when bean reload caused the bean constructor changes to be no longer reloadable in some cases.
+Bug fix: fixed an ArrayIndexOutOfBoundsException when creating an EnumSet from empty enums.
+Bug fix: fixed a EvaluationException when the debugger rendered a Scala collection in IntelliJ IDEA with the Scala plugin installed.
+Bug fix: fixed a serialization issue with GigaSpaces data grid client.
+Bug fix: fixed reloading JavaEE annotations in WebLogic WAR modules that contain metadata-complete fragments.
+
+7.1.2 (9th November 2017)
+
+Feature: added support for GlassFish 5.
+Feature: added support for WildFly 11.0.0.Final.
+Feature: added support for WebSphere 8.0.0.14 and 9.0.0.5.
+Feature: added support for WebSphere Liberty Profile 17.0.0.3.
+Feature: added support for TomEE 7.0.4 plus and 7.0.4 plume.
+Feature: added support for Tomcat 7.0.82 and 8.0.47.
+Feature: added support for tc Server 3.1.12 and 3.2.8.
+Feature: added support for GAE 1.9.58.
+Feature: added support for Apache Tiles 3.0.7.
+Feature: added support for WebLogic 12.2.1 running on Java 9.
+Feature: added support for reloading RouterFunction beans in Spring Boot.
+Feature: added support for OpenWebBeans 1.7.
+Improvement: improved the startup performance of Spring when MBeanExporter is used.
+Improvement: the default value for the command -go-offline is now set to 7 days.
+Improvement: improved the Spring integration to avoid recreating inner beans when the XML definition is not changed.
+Bug fix: fixed IllegalStateException: EntityManagerFactory is closed after reload when a session was created eagerly.
+Bug fix: fixed a NotSerializableException when serialising the Weld 2.x bean identifier.
+Bug fix: fixed an issue with injecting new EJB references into Weld 1.x beans on WebLogic.
+Bug fix: fixed a rare NoSuchMethodError when starting WebSphere.
+Bug fix: fixed a bug where AtomicReference<T>#compareAndSet check could fail after the reload of T.
+Bug fix: fixed an integration issue with SpringFox 2.3 and 2.7.0+.
+Bug fix: fixed reloading classes generated by CGLIB 3.2.1, 3.2.2 and 3.2.3.
+Bug fix: fixed leaking file descriptors with older versions of Jetty.
+Bug fix: fixed Guice’s Injector#getExistingBinding returning null after a class reload.
+
 7.1.1 (19th October 2017)
 
 Feature: added support for Tomcat 8.5.23 and 9.0.1.
