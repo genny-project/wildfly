@@ -7,7 +7,7 @@
     <xsl:output method="xml" indent="yes"/>
 
     <xsl:template match="//ds:subsystem/ds:datasources/ds:datasource[@jndi-name='java:jboss/datasources/ExampleDS']">
-        <ds:datasource jndi-name="java:jboss/datasources/gennyDS" pool-name="gennyDS" enabled="true" use-java-context="true" use-ccm="true">
+        <ds:datasource jndi-name="java:jboss/datasources/gennyDS" pool-name="gennyDS" enabled="true" use-java-context="true" use-ccm="false">
           <ds:connection-url>${env.FULL_MYSQL_URL}</ds:connection-url>
             <ds:driver>mysql</ds:driver>
             <ds:security>
@@ -18,9 +18,11 @@
                 <ds:check-valid-connection-sql>SELECT 1</ds:check-valid-connection-sql>
                 <ds:background-validation>true</ds:background-validation>
                 <ds:background-validation-millis>60000</ds:background-validation-millis>
+                <ds:validate-on-match>true</ds:validate-on-match>
             </ds:validation>
             <ds:pool>
                 <ds:flush-strategy>IdleConnections</ds:flush-strategy>
+                <ds:max-pool-size>150</ds:max-pool-size>
             </ds:pool>
         </ds:datasource>
     </xsl:template>
