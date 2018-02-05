@@ -29,7 +29,6 @@ RUN unzip $HOME/wildfly.zip -d $HOME
 RUN mv $HOME/wildfly-$WILDFLY_VERSION $JBOSS_HOME
 ADD docker-entrypoint.sh $HOME/
 RUN rm -f $HOME/wildfly.zip
-
 RUN cp -f $JBOSS_HOME/standalone/configuration/standalone-full.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 ADD setLogLevel.xsl $JBOSS_HOME/
@@ -43,7 +42,6 @@ WORKDIR $HOME
 ############################ Database #############################
 ADD changeDatabase.xsl $JBOSS_HOME/
 RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/changeDatabase.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml; java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/changeDatabase.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml; 
-
 RUN mkdir -p $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main; cd $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main && curl -O http://central.maven.org/maven2/mysql/mysql-connector-java/$MYSQLCONNECTOR_VERSION/mysql-connector-java-$MYSQLCONNECTOR_VERSION.jar
 
 ADD module.xml $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main/
@@ -71,6 +69,7 @@ RUN /execute.sh
 #Set up for proxy
 RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone.xml
 
+#ADD standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalone.xml
 
