@@ -1,8 +1,9 @@
-FROM  openjdk:9.0.1-11-jre-sid
+FROM  openjdk:8u151-jre-alpine3.7
+RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.7/main > /etc/apk/repositories; \
+    echo http://mirror.yandex.ru/mirrors/alpine/v3.7/community >> /etc/apk/repositories
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
-RUN apt-get clean && apt-get -y update && apt-get install -y jq curl bash xmlstarlet wget vim unzip 
-#RUN apt update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip
+RUN apk update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip
 
 ENV HOME /opt/jboss
 ENV WILDFLY_VERSION 12.0.0.Final
