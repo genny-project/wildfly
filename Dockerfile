@@ -5,8 +5,8 @@ RUN apt-get clean && apt-get -y update && apt-get install -y jq curl bash xmlsta
 #RUN apt update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip
 
 ENV HOME /opt/jboss
-ENV WILDFLY_VERSION 12.0.0.Final
-#ENV WILDFLY_VERSION 10.1.0.Final
+#ENV WILDFLY_VERSION 12.0.0.Final
+ENV WILDFLY_VERSION 10.1.0.Final
 ENV KEYCLOAK_VERSION 3.4.3.Final
 ENV MYSQLCONNECTOR_VERSION 5.1.41
 
