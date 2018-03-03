@@ -1,12 +1,19 @@
 FROM  openjdk:9.0.1-11-jre-sid
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
-RUN apt-get clean && apt-get -y update && apt-get install -y jq curl bash xmlstarlet wget vim unzip 
-#RUN apt update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip
+
+RUN apt-get clean && apt-get -y update && apt-get install -y jq sed curl bash xmlstarlet wget vim unzip  && apt-get clean
+RUN ln -s /bin/sed /usr/bin/sed
+RUN chmod a+x /usr/bin/sed
+
+#FROM  openjdk:8u151-jre-alpine3.7
+#RUN apt update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
+#RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.7/main > /etc/apk/repositories; \
+#    echo http://mirror.yandex.ru/mirrors/alpine/v3.7/community >> /etc/apk/repositories
 
 ENV HOME /opt/jboss
-#ENV WILDFLY_VERSION 12.0.0.Final
-ENV WILDFLY_VERSION 10.1.0.Final
+ENV WILDFLY_VERSION 12.0.0.Final
+#ENV WILDFLY_VERSION 10.1.0.Final
 ENV KEYCLOAK_VERSION 3.4.3.Final
 ENV MYSQLCONNECTOR_VERSION 5.1.41
 
