@@ -1,12 +1,27 @@
-#FROM  openjdk:9.0.1-11-jre-sid
-#RUN apt-get clean && apt-get -y update && apt-get install -y jq sed curl bash xmlstarlet wget vim unzip  && apt-get clean
+FROM alpine:3.6 as packager
+MAINTAINER Adam Crow <acrow@crowtech.com.au>
+ADD jdk-9-ea+181_linux-x64-musl_bin.tar /opt/
+# Build our own jdk9 distro with only these modules, as first stage
+RUN /opt/jdk-9/bin/jlink \
+    --module-path /opt/jdk-9/jmods \
+    --verbose \
+    --add-modules java.base,java.logging,java.xml,jdk.unsupported \
+    --compress 2 \
+    --no-header-files \
+    --output /opt/jdk-9-minimal
 
-FROM  openjdk:8u151-jre-alpine3.7
-RUN apk update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
+# Second stage, add only our custom jdk9 distro and our app
+FROM alpine:3.6
+COPY --from=packager /opt/jdk-9-minimal /opt/jdk-9-minimal
+
+ENV JAVA_HOME=/opt/jdk-9-minimal
+ENV PATH="$PATH:$JAVA_HOME/bin"
+
+
+RUN apt update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
 RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.7/main > /etc/apk/repositories; \
     echo http://mirror.yandex.ru/mirrors/alpine/v3.7/community >> /etc/apk/repositories
 
-MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
 ENV WILDFLY_VERSION 12.0.0.Final
 #ENV WILDFLY_VERSION 10.1.0.Final
