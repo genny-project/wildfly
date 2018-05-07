@@ -70,6 +70,7 @@ RUN rm -Rf keycloak-wildfly-adapter-dist.zip
 ADD execute.sh /
 ADD command.cli /
 ADD jms.cli /
+ADD timeout.cli /
 RUN /execute.sh
 
 
