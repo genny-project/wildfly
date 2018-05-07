@@ -1,2 +1,2 @@
-/host=master/serverserver-config=server-one/system-property=jboss.as.management.blocking.timeout:add(boot-time=true,value=1000)
+/system-property=jboss.as.management.blocking.timeout:add(value=1200)
 :reload
