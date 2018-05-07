@@ -21,6 +21,7 @@ wait_for_server
 $JBOSS_CLI -c --file=bin/adapter-install.cli
 echo "=> Executing the commands to install JMS"
 $JBOSS_CLI -c --file=/jms.cli
+$JBOSS_CLI -c --file=/timing.cli
 
 echo "=> Shutting down WildFly"
 if [ "$JBOSS_MODE" = "standalone" ]; then
