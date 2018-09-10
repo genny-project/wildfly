@@ -10,7 +10,7 @@ RUN chmod a+x /usr/bin/sed
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
-ENV WILDFLY_VERSION 14.0.0.Final
+ENV WILDFLY_VERSION 14.0.1.Final
 ENV KEYCLOAK_VERSION 3.4.0.Final
 ENV MYSQLCONNECTOR_VERSION 5.1.41
 
