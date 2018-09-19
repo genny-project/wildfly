@@ -72,7 +72,6 @@ ADD jms.cli /
 ADD timeout.cli /
 RUN /execute.sh
 
-
 #Set up for proxy
 RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone.xml
 
@@ -82,6 +81,8 @@ RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalo
 
 # clean up empty xmlns strings
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone.xml
+
+COPY standalone-full-ha.xml /opt/jboss/wildfly/standalone/configuration/standalone-full-ha.xml
 
 RUN rm -Rf $JBOSS_HOME/standalone/configuration/standalone_xml_history/current
 RUN chown -R root:root $HOME
