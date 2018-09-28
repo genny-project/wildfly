@@ -35,7 +35,7 @@ RUN unzip $HOME/wildfly.zip -d $HOME
 RUN mv $HOME/wildfly-$WILDFLY_VERSION $JBOSS_HOME
 ADD docker-entrypoint.sh $HOME/
 RUN rm -f $HOME/wildfly.zip
-RUN cp -f $JBOSS_HOME/standalone/configuration/standalone-full.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+RUN cp -f $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 ADD setLogLevel.xsl $JBOSS_HOME/
 RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml
@@ -47,7 +47,7 @@ WORKDIR $HOME
 
 ############################ Database #############################
 ADD changeDatabase.xsl $JBOSS_HOME/
-RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/changeDatabase.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml; java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/changeDatabase.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml; 
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/changeDatabase.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml;  
 RUN mkdir -p $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main; cd $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main && curl -O http://central.maven.org/maven2/mysql/mysql-connector-java/$MYSQLCONNECTOR_VERSION/mysql-connector-java-$MYSQLCONNECTOR_VERSION.jar
 
 ADD module.xml $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main/
@@ -63,7 +63,7 @@ RUN rm -Rf keycloak-wildfly-adapter-dist.zip
 
 ############################ Node Identifier #############################
 #ADD node-identifier.xsl $JBOSS_HOME/
-#RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml; java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/changeDatabase.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml; 
+#RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml;  
 
 
 ADD execute.sh /
@@ -82,7 +82,7 @@ RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalo
 # clean up empty xmlns strings
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone.xml
 
-COPY standalone-full-ha.xml /opt/jboss/wildfly/standalone/configuration/standalone-full-ha.xml
+#COPY standalone-full-ha.xml /opt/jboss/wildfly/standalone/configuration/standalone-full-ha.xml
 
 RUN rm -Rf $JBOSS_HOME/standalone/configuration/standalone_xml_history/current
 RUN chown -R root:root $HOME
