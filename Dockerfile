@@ -2,6 +2,9 @@
 #RUN apt-get clean && apt-get -y update && apt-get install -y jq sed curl bash xmlstarlet wget vim unzip  && apt-get clean
 
 FROM  openjdk:8u151-jre-alpine3.7
+
+#FROM openjdk:11-jre-slim
+
 RUN apk update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
 RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.7/main > /etc/apk/repositories; \
     echo http://mirror.yandex.ru/mirrors/alpine/v3.7/community >> /etc/apk/repositories
@@ -40,6 +43,11 @@ RUN cp -f $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml $JBOSS_HOM
 ADD setLogLevel.xsl $JBOSS_HOME/
 RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml
 
+#Update jgroups UDP send/rx buffer size
+RUN echo "# Allow a 25MB UDP receive buffer for JGroups  " > /etc/sysctl.conf
+RUN echo "net.core.rmem_max = 26214400 " >> /etc/sysctl.conf 
+RUN echo "# Allow a 1MB UDP send buffer for JGroups " >> /etc/sysctl.conf 
+RUN echo "net.core.wmem_max = 1048576" >> /etc/sysctl.conf
 
 USER root
 
@@ -78,6 +86,7 @@ RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-a
 #ADD standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalone.xml
+RUN sed -i 's/CHANGE ME!!/WubbaLubbaDubDub/g' $JBOSS_HOME/standalone/configuration/standalone.xml
 
 # clean up empty xmlns strings
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone.xml
