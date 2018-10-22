@@ -12,11 +12,13 @@ fi
 
     /opt/jboss/wildfly/bin/add-user.sh  jmsuser jmspassword1 
 
+
+
 if [[ $DEBUG == "TRUE" ]]; then 
    echo "Remote Debug on port 8787 True"; 
    export JAVA_OPTS="${JAVA_OPTS}   -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=${DEBUG_SUSPEND:=n}  -Drebel.remoting_plugin=true "
-   /opt/jboss/wildfly/bin/standalone.sh --debug   -DHIBERNATE_SHOW_SQL=${HIBERNATE_SHOW_SQL:=false} -DHIBERNATE_HBM2DDL=$HIBERNATE_HBM2DDL -DMYSQL_USER=$MYSQL_USER -DMYSQL_PASSWORD=$MYSQL_PASSWORD -Djava.security.auth.login.config=''  $@
+   /opt/jboss/wildfly/bin/standalone.sh --debug   -DHIBERNATE_SHOW_SQL=${HIBERNATE_SHOW_SQL:=false} -DHIBERNATE_HBM2DDL=$HIBERNATE_HBM2DDL -DMYSQL_USER=$MYSQL_USER -DMYSQL_PASSWORD=$MYSQL_PASSWORD -Djava.security.auth.login.config=''   -Dhazelcast.health.monitoring.level=OFF  $@
 else 
    echo "Debug is False"; 
-   /opt/jboss/wildfly/bin/standalone.sh  -DHIBERNATE_SHOW_SQL=$HIBERNATE_SHOW_SQL -DHIBERNATE_HBM2DDL=$HIBERNATE_HBM2DDL -DMYSQL_USER=$MYSQL_USER -DMYSQL_PASSWORD=$MYSQL_PASSWORD -Djava.security.auth.login.config='' $@
+   /opt/jboss/wildfly/bin/standalone.sh  -DHIBERNATE_SHOW_SQL=$HIBERNATE_SHOW_SQL -DHIBERNATE_HBM2DDL=$HIBERNATE_HBM2DDL -DMYSQL_USER=$MYSQL_USER -DMYSQL_PASSWORD=$MYSQL_PASSWORD -Djava.security.auth.login.config=''  -Dhazelcast.health.monitoring.level=OFF $@
 fi
