@@ -13,7 +13,7 @@ RUN chmod a+x /usr/bin/sed
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
-ENV WILDFLY_VERSION 15.0.1.Final
+ENV WILDFLY_VERSION 16.0.0.Final
 ENV KEYCLOAK_VERSION 3.4.0.Final
 ENV MYSQLCONNECTOR_VERSION 5.1.41
 
@@ -76,7 +76,8 @@ RUN rm -Rf keycloak-wildfly-adapter-dist.zip
 
 ADD execute.sh /
 ADD command.cli /
-ADD jms.cli /
+#ADD deployment-timeout.cli /
+#ADD jms.cli /
 ADD timeout.cli /
 RUN /execute.sh
 

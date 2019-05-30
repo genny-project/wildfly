@@ -1,0 +1,7 @@
+# Script for increasing deployment-related timeouts on WildFly to 60 minutes.
+# Run with: $WILDFLY_HOME/bin/jboss-cli.sh --connect --file=deployment-timeout.cli
+
+batch
+/system-property=jboss.as.management.blocking.timeout:add(value=3600)
+/subsystem=deployment-scanner/scanner=default:write-attribute(name=deployment-timeout,value=3600)
+run-batch
