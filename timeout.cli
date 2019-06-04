@@ -1,2 +1,2 @@
-/system-property=jboss.as.management.blocking.timeout:add(value=3600)
+/system-property=jboss.as.management.blocking.timeout:add(value=10000)
 :reload
