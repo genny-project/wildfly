@@ -16,7 +16,7 @@
                 </log:logger>
                 <log:logger category="com.hazelcast">
                     <log:level>
-                      <xsl:attribute name="name">${env.HAZELCAST_LOGLEVEL:INFO}</xsl:attribute>
+                      <xsl:attribute name="name">${env.HAZELCAST_LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
                 </log:logger>
                 <log:logger category="org.drools.compiler">
