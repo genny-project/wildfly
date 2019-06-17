@@ -94,6 +94,41 @@
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
                 </log:logger>
+                <log:logger category="org.wildfly.extension.undertow">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jboss.modcluster">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jgroups.protocols">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jboss.as">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.hibernate">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.infinispan">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="io.smallrye.metrics">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
         </xsl:copy>
     </xsl:template>
 
