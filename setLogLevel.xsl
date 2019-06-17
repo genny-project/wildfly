@@ -154,6 +154,11 @@
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
                 </log:logger>
+                <log:logger category="io.vertx.resourceadapter.impl.VertxPlatformFactory">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
         </xsl:copy>
     </xsl:template>
 
