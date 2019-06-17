@@ -34,7 +34,62 @@
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
                 </log:logger>
+                <log:logger category="org.jboss.weld">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jboss.as.server.deployment">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
                 <log:logger category="org.apache.activemq">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jboss.modules.define">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.kie.api.internal.utils.ServiceDiscoveryImpl">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.wildfly.extension.messaging-activemq">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.infinispan.remoting.transport.jgroups.JGroupsTransport">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jboss.as.ejb3.deployment">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jboss.as.clustering.infinispan">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.infinispan.CLUSTER">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="io.vertx.resourceadapter.inflow.impl.VertxActivation">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="io.vertx.resourceadapter.impl.VertxPlatformFactory">
                     <log:level>
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
