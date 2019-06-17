@@ -129,6 +129,31 @@
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
                 </log:logger>
+                <log:logger category="org.jboss.remoting">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.wildfly.extension">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.wildfly.iiop.openjdk">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jboss.ws.common.management">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.xnio">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
         </xsl:copy>
     </xsl:template>
 
