@@ -14,6 +14,31 @@
                       <xsl:attribute name="name">${env.KEYCLOAK_LOGLEVEL:INFO}</xsl:attribute>
                     </log:level>
                 </log:logger>
+                <log:logger category="com.hazelcast">
+                    <log:level>
+                      <xsl:attribute name="name">${env.HAZELCAST_LOGLEVEL:INFO}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.drools.compiler">
+                    <log:level>
+                      <xsl:attribute name="name">${env.DROOLS_LOGLEVEL:INFO}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jboss.resteasy.resteasy_jaxrs.i18n">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.jboss.as.weld">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="org.apache.activemq">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
         </xsl:copy>
     </xsl:template>
 
