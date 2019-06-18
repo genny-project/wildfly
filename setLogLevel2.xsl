@@ -154,7 +154,12 @@
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
                 </log:logger>
-                <log:logger category="javax.enterprise.resource">
+                <log:logger category="io.vertx.resourceadapter.impl.VertxPlatformFactory">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
+                <log:logger category="io.vertx.core.impl.HAManager">
                     <log:level>
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
@@ -164,7 +169,7 @@
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
                 </log:logger>
-                <log:logger category="io.vertx.core.impl.HAManager">
+                <log:logger category="javax.enterprise.resource">
                     <log:level>
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
