@@ -14,7 +14,7 @@ RUN chmod a+x /usr/bin/sed
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
 ENV WILDFLY_VERSION 17.0.1.Final
-ENV KEYCLOAK_VERSION 3.4.0.Final
+ENV KEYCLOAK_VERSION 6.0.1 
 ENV MYSQLCONNECTOR_VERSION 5.1.41
 
 # Enables signals getting passed from startup script to JVM
@@ -42,6 +42,8 @@ RUN cp -f $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml $JBOSS_HOM
 
 ADD setLogLevel.xsl $JBOSS_HOME/
 RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
 #Update jgroups UDP send/rx buffer size
 RUN echo "# Allow a 25MB UDP receive buffer for JGroups  " > /etc/sysctl.conf
@@ -56,11 +58,15 @@ WORKDIR $HOME
 ############################ Database #############################
 ADD changeDatabase.xsl $JBOSS_HOME/
 RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/changeDatabase.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml;  
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/changeDatabase.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml;  
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml -xsl:$JBOSS_HOME/changeDatabase.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml;  
 RUN mkdir -p $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main; cd $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main && curl -O http://central.maven.org/maven2/mysql/mysql-connector-java/$MYSQLCONNECTOR_VERSION/mysql-connector-java-$MYSQLCONNECTOR_VERSION.jar
 
 ADD module.xml $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main/
 RUN sed -i "s/mysql-connector-java/mysql-connector-java-$MYSQLCONNECTOR_VERSION/g" $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main/module.xml
 RUN sed -i 's/ExampleDS/gennyDS/g' $JBOSS_HOME/standalone/configuration/standalone.xml
+RUN sed -i 's/ExampleDS/gennyDS/g' $JBOSS_HOME/standalone/configuration/standalone-ha.xml
+RUN sed -i 's/ExampleDS/gennyDS/g' $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
 ############################ Security #############################
 #Add Keycloak Support
@@ -72,6 +78,8 @@ RUN rm -Rf keycloak-wildfly-adapter-dist.zip
 ############################ Node Identifier #############################
 #ADD node-identifier.xsl $JBOSS_HOME/
 #RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml;  
+#RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml;  
+#RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml;  
 
 
 ADD execute.sh /
@@ -83,14 +91,22 @@ RUN /execute.sh
 
 #Set up for proxy
 RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone.xml
+RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone-ha.xml
+RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
 #ADD standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN sed -i 's/CHANGE ME!!/WubbaLubbaDubDub/g' $JBOSS_HOME/standalone/configuration/standalone.xml
+RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalone-ha.xml
+RUN sed -i 's/CHANGE ME!!/WubbaLubbaDubDub/g' $JBOSS_HOME/standalone/configuration/standalone-ha.xml
+RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
+RUN sed -i 's/CHANGE ME!!/WubbaLubbaDubDub/g' $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
 # clean up empty xmlns strings
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone.xml
+RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone-ha.xml
+RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
 #COPY standalone-full-ha.xml /opt/jboss/wildfly/standalone/configuration/standalone-full-ha.xml
 

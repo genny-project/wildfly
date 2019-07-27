@@ -12,13 +12,14 @@ function wait_for_server() {
 }
 
 echo "=> Starting WildFly server"
-/opt/jboss/wildfly/bin/standalone.sh  -c standalone.xml >/dev/null &
+/opt/jboss/wildfly/bin/standalone.sh  -c standalone-full-ha.xml >/dev/null &
 
 echo "=> Waiting for the server to boot"
 wait_for_server
 
 ##### THIS ENABLES KEYCLOAK!!
-$JBOSS_CLI -c --file=bin/adapter-install.cli
+#$JBOSS_CLI -c --file=bin/adapter-install.cli
+$JBOSS_CLI -c --file=/opt/jboss/wildfly/bin/adapter-elytron-install.cli
 echo "=> Executing the commands to install JMS"
 $JBOSS_CLI -c --file=/jms.cli
 $JBOSS_CLI -c --file=/timeout.cli
