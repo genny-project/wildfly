@@ -110,6 +110,7 @@ RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone-ful
 
 #COPY standalone-full-ha.xml /opt/jboss/wildfly/standalone/configuration/standalone-full-ha.xml
 
+RUN cp -f $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN rm -Rf $JBOSS_HOME/standalone/configuration/standalone_xml_history/current
 RUN chown -R root:root $HOME
 USER root 
