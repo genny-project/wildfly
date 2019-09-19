@@ -9,6 +9,11 @@
     <xsl:template match="//log:subsystem">
         <xsl:copy>
             <xsl:apply-templates select="node()|@*"/>
+                <log:logger category="org.jbpm.process.audit.VariableInstanceLog">
+                    <log:level>
+                      <xsl:attribute name="name">${env.KEYCLOAK_LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
                 <log:logger category="org.keycloak">
                     <log:level>
                       <xsl:attribute name="name">${env.KEYCLOAK_LOGLEVEL:INFO}</xsl:attribute>
