@@ -24,6 +24,7 @@ ENV MYSQL_PORT_3306_TCP_PORT 3306
 
 USER root
 
+RUN chmod -Rf 777 /tmp
 RUN mkdir -p /opt/jboss
 RUN chown -R root:root $HOME 
 
