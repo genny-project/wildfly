@@ -1,9 +1,4 @@
-#FROM  openjdk:9.0.1-11-jre-sid
-#RUN apt-get clean && apt-get -y update && apt-get install -y jq sed curl bash xmlstarlet wget vim unzip  && apt-get clean
-
-FROM  openjdk:8u151-jre-alpine3.7
-
-#FROM openjdk:11-jre-slim
+FROM  openjdk:8u212-jre-alpine3.9
 
 RUN apk update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
 RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.7/main > /etc/apk/repositories; \
@@ -14,7 +9,7 @@ RUN chmod a+x /usr/bin/sed
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
 ENV WILDFLY_VERSION 17.0.1.Final
-ENV KEYCLOAK_VERSION 6.0.1 
+ENV KEYCLOAK_VERSION 7.0.0 
 ENV MYSQLCONNECTOR_VERSION 5.1.41
 
 # Enables signals getting passed from startup script to JVM
@@ -87,6 +82,8 @@ ADD execute.sh /
 ADD command.cli /
 #ADD deployment-timeout.cli /
 ADD kie-jms.cli /
+ADD jms.cli /
+ADD configure-jms.cli /
 ADD timeout.cli /
 RUN /execute.sh
 
