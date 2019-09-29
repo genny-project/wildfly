@@ -1,2 +1,0 @@
-/subsystem=messaging-activemq/server=default/jms-queue=GennyQ/:add(entries=["java:/jboss/exported/jms/queue/GennyQ"])
-:reload

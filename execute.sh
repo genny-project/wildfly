@@ -21,10 +21,8 @@ wait_for_server
 #$JBOSS_CLI -c --file=bin/adapter-install.cli
 $JBOSS_CLI -c --file=/opt/jboss/wildfly/bin/adapter-elytron-install.cli
 echo "=> Executing the commands to install JMS"
-$JBOSS_CLI -c --file=/jms.cli
 $JBOSS_CLI -c --file=/timeout.cli
-$JBOSS_CLI -c --file=/kie-jms.cli
-$JBOSS_CLI -c --file=/configure-jms.cli
+$JBOSS_CLI -c --file=/kie-jms3.cli
 
 echo "=> Shutting down WildFly"
 if [ "$JBOSS_MODE" = "standalone" ]; then

@@ -81,9 +81,7 @@ RUN rm -Rf keycloak-wildfly-adapter-dist.zip
 ADD execute.sh /
 ADD command.cli /
 #ADD deployment-timeout.cli /
-ADD kie-jms.cli /
-ADD jms.cli /
-ADD configure-jms.cli /
+ADD kie-jms3.cli /
 ADD timeout.cli /
 RUN /execute.sh
 
@@ -91,8 +89,6 @@ RUN /execute.sh
 RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone-ha.xml
 RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
-
-#ADD standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN sed -i 's/CHANGE ME!!/WubbaLubbaDubDub/g' $JBOSS_HOME/standalone/configuration/standalone.xml
@@ -105,8 +101,6 @@ RUN sed -i 's/CHANGE ME!!/WubbaLubbaDubDub/g' $JBOSS_HOME/standalone/configurati
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone-ha.xml
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
-
-#COPY standalone-full-ha.xml /opt/jboss/wildfly/standalone/configuration/standalone-full-ha.xml
 
 RUN cp -f $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN rm -Rf $JBOSS_HOME/standalone/configuration/standalone_xml_history/current

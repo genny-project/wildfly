@@ -5,6 +5,7 @@ batch
 
 # Configure the JMS test queue
 jms-queue add --queue-address=KIE.SERVER.EXECUTOR --entries=queue/KIE.SERVER.EXECUTOR,java:jboss/exported/jms/queue/KIE.SERVER.EXECUTOR
+jms-queue add --queue-address=KIE.EXECUTOR --entries=queue/KIE.EXECUTOR,java:jboss/exported/jms/queue/KIE.EXECUTOR
 
 # Run the batch commands
 run-batch
