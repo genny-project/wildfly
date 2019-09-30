@@ -8,6 +8,7 @@ jms-queue add --queue-address=KIE.SERVER.REQUEST --entries=queue/KIE.SERVER.REQU
 jms-queue add --queue-address=KIE.SERVER.RESPONSE --entries=queue/KIE.SERVER.RESPONSE,java:jboss/exported/jms/queue/KIE.SERVER.RESPONSE
 jms-queue add --queue-address=KIE.SERVER.EXECUTOR --entries=queue/KIE.SERVER.EXECUTOR,java:jboss/exported/jms/queue/KIE.SERVER.EXECUTOR
 jms-queue add --queue-address=KIE.SERVER.SIGNAL.QUEUE --entries=queue/KIE.SERVER.SIGNAL,java:jboss/exported/jms/queue/KIE.SERVER.SIGNAL
+jms-queue add --queue-address=KIE.SIGNAL --entries=queue/KIE.SIGNAL,java:jboss/exported/jms/queue/KIE.SIGNAL
 jms-queue add --queue-address=KIE.EXECUTOR --entries=queue/KIE.EXECUTOR,java:jboss/exported/jms/queue/KIE.EXECUTOR
 
 # Run the batch commands
