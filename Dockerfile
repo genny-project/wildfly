@@ -37,10 +37,6 @@ ADD docker-entrypoint.sh $HOME/
 RUN rm -f $HOME/wildfly.zip
 RUN cp -f $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
-ADD setLogLevel.xsl $JBOSS_HOME/
-RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml
-RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml
-RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
 #Update jgroups UDP send/rx buffer size
 RUN echo "# Allow a 25MB UDP receive buffer for JGroups  " > /etc/sysctl.conf
@@ -73,10 +69,10 @@ RUN unzip -o $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip
 RUN rm -Rf keycloak-wildfly-adapter-dist.zip
 
 ############################ Node Identifier #############################
-#ADD node-identifier.xsl $JBOSS_HOME/
-#RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml;  
-#RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml;  
-#RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml;  
+ADD node-identifier.xsl $JBOSS_HOME/
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml;  
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml;  
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml -xsl:$JBOSS_HOME/node-identifier.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml;  
 
 
 ADD execute.sh /
@@ -85,6 +81,11 @@ ADD command.cli /
 ADD kie-jms3.cli /
 ADD timeout.cli /
 RUN /execute.sh
+
+ADD setLogLevel.xsl $JBOSS_HOME/
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone.xml
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-ha.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-ha.xml
+RUN java -jar /usr/share/java/saxon.jar -s:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml -xsl:$JBOSS_HOME/setLogLevel.xsl -o:$JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
 #Set up for proxy
 RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone.xml

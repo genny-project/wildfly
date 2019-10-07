@@ -8,6 +8,7 @@ JBOSS_CONFIG=standalone.xml
 function wait_for_server() {
   until `$JBOSS_CLI -c "ls /deployment" &> /dev/null`; do
     sleep 1
+    
   done
 }
 
