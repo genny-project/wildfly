@@ -2,7 +2,7 @@
 
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:tx="urn:jboss:domain:transactions:3.0"
+                xmlns:tx="urn:jboss:domain:transactions:5.0"
                 exclude-result-prefixes="">
 
     <xsl:output method="xml" indent="yes"/>
