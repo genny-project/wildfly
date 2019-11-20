@@ -8,7 +8,7 @@
 
     <xsl:template match="//ds:subsystem/ds:datasources/ds:datasource[@jndi-name='java:jboss/datasources/ExampleDS']">
         <ds:datasource jndi-name="java:jboss/datasources/gennyDS" pool-name="gennyDS" enabled="true" use-java-context="true" use-ccm="true">
-          <ds:connection-url>${env.FULL_MYSQL_URL}</ds:connection-url>
+          <ds:connection-url>${env.FULL_MYSQL_URL:mysql}</ds:connection-url>
             <ds:driver>mysql</ds:driver>
             <ds:security>
                 <ds:user-name>${env.MYSQL_USER:admin}</ds:user-name>
@@ -29,7 +29,7 @@
         <xsl:copy>
             <xsl:apply-templates select="node()|@*"/>
             <ds:driver name="mysql" module="com.mysql.jdbc">
-                <ds:xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</ds:xa-datasource-class>
+                <ds:xa-datasource-class>com.mysql.cj.jdbc.MysqlXADataSource</ds:xa-datasource-class>
             </ds:driver>
         </xsl:copy>
     </xsl:template>
