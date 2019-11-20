@@ -8,19 +8,17 @@ JBOSS_CONFIG=standalone.xml
 function wait_for_server() {
   until `$JBOSS_CLI -c "ls /deployment" &> /dev/null `; do
     sleep 1
-    
+
   done
 }
 
 echo "=> Starting WildFly server"
-#/opt/jboss/wildfly/bin/standalone.sh  -b 0.0.0.0   -c standalone.xml 
-/opt/jboss/wildfly/bin/standalone.sh  -b 0.0.0.0   -c standalone.xml >/dev/null &
+/opt/jboss/wildfly/bin/standalone.sh  -c standalone-full-ha.xml >/dev/null &
 
 echo "=> Waiting for the server to boot"
 wait_for_server
 
 ##### THIS ENABLES KEYCLOAK!!
-echo "=> Executing the commands to install Keycloak"
 #$JBOSS_CLI -c --file=bin/adapter-install.cli
 $JBOSS_CLI -c --file=/opt/jboss/wildfly/bin/adapter-elytron-install.cli
 echo "=> Executing the commands to install JMS"
