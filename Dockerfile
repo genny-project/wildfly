@@ -1,8 +1,8 @@
 FROM  openjdk:8u212-jre-alpine3.9
 
 RUN apk update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
-RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.7/main > /etc/apk/repositories; \
-    echo http://mirror.yandex.ru/mirrors/alpine/v3.7/community >> /etc/apk/repositories
+RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.9/main > /etc/apk/repositories; \
+    echo http://mirror.yandex.ru/mirrors/alpine/v3.9/community >> /etc/apk/repositories
 RUN ln -s /bin/sed /usr/bin/sed
 RUN chmod a+x /usr/bin/sed
 
