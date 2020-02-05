@@ -181,7 +181,7 @@
                 </log:logger>
                 <log:logger category="org.drools.core.xml.ExtensibleXmlParser">
                     <log:level>
-                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                      <xsl:attribute name="name">${env.LOGLEVEL:OFF}</xsl:attribute>
                     </log:level>
                 </log:logger>
         </xsl:copy>
