@@ -8,9 +8,8 @@ RUN chmod a+x /usr/bin/sed
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
-ENV WILDFLY_VERSION 18.0.1.Final
+ENV WILDFLY_VERSION 19.0.0.Final
 ENV KEYCLOAK_VERSION 7.0.1 
-#ENV MYSQLCONNECTOR_VERSION 5.1.41
 ENV MYSQLCONNECTOR_VERSION 8.0.19 
 
 # Enables signals getting passed from startup script to JVM
