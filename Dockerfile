@@ -102,9 +102,9 @@ RUN sed -i 's/CHANGE ME!!/WubbaLubbaDubDub/g' $JBOSS_HOME/standalone/configurati
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 RUN sed -i 's/CHANGE ME!!/WubbaLubbaDubDub/g' $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
-RUN sed -i 's/<\/core-environment>/<\/core-environment>\n\t<coordinator-environment default-timeout="1200"\/>/g'  $JBOSS_HOME/standalone/configuration/standalone.xml
-RUN sed -i 's/<\/core-environment>/<\/core-environment>\n\t<coordinator-environment default-timeout="1200"\/>/g'  $JBOSS_HOME/standalone/configuration/standalone-ha.xml
-RUN sed -i 's/<\/core-environment>/<\/core-environment>\n\t<coordinator-environment default-timeout="1200"\/>/g'  $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
+RUN sed -i 's/statistics-enabled=/default-timeout="1200" statistics-enabled=/g'  $JBOSS_HOME/standalone/configuration/standalone.xml
+RUN sed -i 's/statistics-enabled=/default-timeout="1200" statistics-enabled=/g'  $JBOSS_HOME/standalone/configuration/standalone-ha.xml
+RUN sed -i 's/statistics-enabled=/default-timeout="1200" statistics-enabled=/g'  $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
 # clean up empty xmlns strings
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone.xml
