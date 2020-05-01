@@ -2,3 +2,4 @@
 /subsystem=security/security-domain=keycloak/authentication=classic/:add(login-modules=[{ "code" => "org.keycloak.adapters.jboss.KeycloakLoginModule","flag" => "required"}])
 /extension=org.keycloak.keycloak-adapter-subsystem/:add(module=org.keycloak.keycloak-adapter-subsystem)
 /subsystem=keycloak:add
+/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=no-request-timeout, value=120000)
