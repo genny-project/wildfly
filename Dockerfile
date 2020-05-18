@@ -1,4 +1,5 @@
 FROM  openjdk:8u212-jre-alpine3.9
+#FROM  openjdk:8u252-jre-slim
 
 RUN apk update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
 RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.9/main > /etc/apk/repositories; \
@@ -8,9 +9,9 @@ RUN chmod a+x /usr/bin/sed
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
-ENV WILDFLY_VERSION 19.0.0.Final
-ENV KEYCLOAK_VERSION 9.0.2
-ENV MYSQLCONNECTOR_VERSION 8.0.19 
+ENV WILDFLY_VERSION 19.1.0.Final
+ENV KEYCLOAK_VERSION 10.0.1
+ENV MYSQLCONNECTOR_VERSION 8.0.20 
 
 # Enables signals getting passed from startup script to JVM
 # ensuring clean shutdown when container is stopped.
