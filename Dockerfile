@@ -9,9 +9,9 @@ RUN chmod a+x /usr/bin/sed
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
-ENV WILDFLY_VERSION 20.0.1.Final
+ENV WILDFLY_VERSION 21.0.0.Final
 ENV KEYCLOAK_VERSION 11.0.2
-ENV MYSQLCONNECTOR_VERSION 8.0.21
+ENV MYSQLCONNECTOR_VERSION 8.0.22
 
 # Enables signals getting passed from startup script to JVM
 # ensuring clean shutdown when container is stopped.
@@ -32,6 +32,11 @@ ENV JBOSS_HOME $HOME/wildfly
 #RUN echo "http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -O $HOME/wildfly.zip | tar zx && mv $HOME/keycloak-$WILDFLY_VERSION $JBOSS_HOME"
 RUN cd /opt/jboss/ && curl -L http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -o $HOME/wildfly.zip
 RUN unzip $HOME/wildfly.zip -d $HOME
+
+# for local test
+#ADD wildfly-$WILDFLY_VERSION.zip $HOME
+#RUN unzip $HOME/wildfly-$WILDFLY_VERSION.zip -d $HOME
+
 RUN mv $HOME/wildfly-$WILDFLY_VERSION $JBOSS_HOME
 ADD docker-entrypoint.sh $HOME/
 RUN rm -f $HOME/wildfly.zip
