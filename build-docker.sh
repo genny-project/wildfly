@@ -10,6 +10,6 @@ docker build  --no-cache -t gennyproject/wildfly:${version} .
 #docker build -f DockerfileJRebel  --no-cache -t gennyproject/wildfly:jrebel . 
 
 if [ -z "${1}" ]; then
-   docker tag gennyproject/wildfly:latest gennyproject/wildfly:v7.3.0
-   docker tag gennyproject/wildfly:latest gennyproject/wildfly:7.3.0
+   docker tag gennyproject/wildfly:latest gennyproject/wildfly:v7.5.0
+   docker tag gennyproject/wildfly:latest gennyproject/wildfly:7.5.0
 fi
