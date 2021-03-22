@@ -2,6 +2,8 @@
 #FROM  openjdk:8u252-jre-slim
 FROM adoptopenjdk/openjdk11:alpine
 
+RUN mv /usr/glibc-compat/lib/ld-linux-x86-64.so.2 /usr/glibc-compat/lib/ld-linux-x86-64.so
+RUN ln -s /usr/glibc-compat/lib/ld-linux-x86-64.so /usr/glibc-compat/lib/ld-linux-x86-64.so.2
 RUN apk update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
 RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.9/main > /etc/apk/repositories; \
     echo http://mirror.yandex.ru/mirrors/alpine/v3.9/community >> /etc/apk/repositories
@@ -10,7 +12,7 @@ RUN chmod a+x /usr/bin/sed
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
-ENV WILDFLY_VERSION 22.0.0.Final
+ENV WILDFLY_VERSION 22.0.1.Final
 ENV KEYCLOAK_VERSION 11.0.3
 ENV MYSQLCONNECTOR_VERSION 8.0.22
 
