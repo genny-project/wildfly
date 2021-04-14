@@ -1,20 +1,18 @@
-#FROM  openjdk:8u212-jre-alpine3.9
-#FROM  openjdk:8u252-jre-slim
 FROM adoptopenjdk/openjdk11:alpine
 
 RUN mv /usr/glibc-compat/lib/ld-linux-x86-64.so.2 /usr/glibc-compat/lib/ld-linux-x86-64.so
 RUN ln -s /usr/glibc-compat/lib/ld-linux-x86-64.so /usr/glibc-compat/lib/ld-linux-x86-64.so.2
+RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.12/main > /etc/apk/repositories; \
+    echo http://mirror.yandex.ru/mirrors/alpine/v3.12/community >> /etc/apk/repositories
 RUN apk update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
-RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.9/main > /etc/apk/repositories; \
-    echo http://mirror.yandex.ru/mirrors/alpine/v3.9/community >> /etc/apk/repositories
 RUN ln -s /bin/sed /usr/bin/sed
 RUN chmod a+x /usr/bin/sed
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
-ENV WILDFLY_VERSION 22.0.1.Final
-ENV KEYCLOAK_VERSION 11.0.3
-ENV MYSQLCONNECTOR_VERSION 8.0.22
+ENV WILDFLY_VERSION 23.0.0.Final
+ENV KEYCLOAK_VERSION 12.0.4
+ENV MYSQLCONNECTOR_VERSION 8.0.23
 
 # Enables signals getting passed from startup script to JVM
 # ensuring clean shutdown when container is stopped.
@@ -76,7 +74,8 @@ RUN sed -i 's/ExampleDS/gennyDS/g' $JBOSS_HOME/standalone/configuration/standalo
 ############################ Security #############################
 #Add Keycloak Support
 WORKDIR $JBOSS_HOME
-RUN wget http://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/adapters/keycloak-oidc/keycloak-wildfly-adapter-dist-$KEYCLOAK_VERSION.zip  -O $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip
+#RUN wget http://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/adapters/keycloak-oidc/keycloak-wildfly-adapter-dist-$KEYCLOAK_VERSION.zip  -O $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip
+RUN wget https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/keycloak-oidc-wildfly-adapter-$KEYCLOAK_VERSION.zip  -O $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip
 RUN unzip -o $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip 
 RUN rm -Rf keycloak-wildfly-adapter-dist.zip
 
