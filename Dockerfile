@@ -10,9 +10,9 @@ RUN chmod a+x /usr/bin/sed
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
-ENV WILDFLY_VERSION 23.0.0.Final
-ENV KEYCLOAK_VERSION 12.0.4
-ENV MYSQLCONNECTOR_VERSION 8.0.23
+ENV WILDFLY_VERSION 23.0.2.Final
+ENV KEYCLOAK_VERSION 13.0.0
+ENV MYSQLCONNECTOR_VERSION 8.0.25
 
 # Enables signals getting passed from startup script to JVM
 # ensuring clean shutdown when container is stopped.
@@ -30,7 +30,6 @@ COPY java/* /usr/share/java/
 USER root 
 ENV JBOSS_HOME $HOME/wildfly
 
-#RUN echo "http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -O $HOME/wildfly.zip | tar zx && mv $HOME/keycloak-$WILDFLY_VERSION $JBOSS_HOME"
 RUN cd /opt/jboss/ && curl -L http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -o $HOME/wildfly.zip
 RUN unzip $HOME/wildfly.zip -d $HOME
 
@@ -74,7 +73,6 @@ RUN sed -i 's/ExampleDS/gennyDS/g' $JBOSS_HOME/standalone/configuration/standalo
 ############################ Security #############################
 #Add Keycloak Support
 WORKDIR $JBOSS_HOME
-#RUN wget http://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/adapters/keycloak-oidc/keycloak-wildfly-adapter-dist-$KEYCLOAK_VERSION.zip  -O $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip
 RUN wget https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/keycloak-oidc-wildfly-adapter-$KEYCLOAK_VERSION.zip  -O $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip
 RUN unzip -o $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip 
 RUN rm -Rf keycloak-wildfly-adapter-dist.zip
