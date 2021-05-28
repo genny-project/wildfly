@@ -11,7 +11,7 @@ RUN chmod a+x /usr/bin/sed
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
 ENV WILDFLY_VERSION 23.0.2.Final
-ENV KEYCLOAK_VERSION 13.0.0
+ENV KEYCLOAK_VERSION 13.0.1
 ENV MYSQLCONNECTOR_VERSION 8.0.25
 
 # Enables signals getting passed from startup script to JVM
