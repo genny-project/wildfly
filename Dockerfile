@@ -11,7 +11,7 @@ RUN chmod a+x /usr/bin/sed
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
 ENV WILDFLY_VERSION 23.0.2.Final
-ENV KEYCLOAK_VERSION 13.0.1
+ENV KEYCLOAK_VERSION 11.0.3
 ENV MYSQLCONNECTOR_VERSION 8.0.25
 
 # Enables signals getting passed from startup script to JVM
@@ -73,7 +73,10 @@ RUN sed -i 's/ExampleDS/gennyDS/g' $JBOSS_HOME/standalone/configuration/standalo
 ############################ Security #############################
 #Add Keycloak Support
 WORKDIR $JBOSS_HOME
-RUN wget https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/keycloak-oidc-wildfly-adapter-$KEYCLOAK_VERSION.zip  -O $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip
+# since keycloak 12, zip file hosted on github
+#RUN wget https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/keycloak-oidc-wildfly-adapter-$KEYCLOAK_VERSION.zip  -O $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip
+RUN wget https://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/adapters/keycloak-oidc/keycloak-wildfly-adapter-dist-$KEYCLOAK_VERSION.zip -O $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip
+
 RUN unzip -o $JBOSS_HOME/keycloak-wildfly-adapter-dist.zip 
 RUN rm -Rf keycloak-wildfly-adapter-dist.zip
 
