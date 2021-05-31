@@ -12,7 +12,7 @@ MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
 ENV WILDFLY_VERSION 22.0.1.Final
 ENV KEYCLOAK_VERSION 11.0.3
-ENV MYSQLCONNECTOR_VERSION 8.0.25
+ENV MYSQLCONNECTOR_VERSION 8.0.22
 
 # Enables signals getting passed from startup script to JVM
 # ensuring clean shutdown when container is stopped.
