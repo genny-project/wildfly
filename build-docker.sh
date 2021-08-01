@@ -10,7 +10,7 @@ fi
 docker build  --no-cache -t gennyproject/wildfly:${version} . 
 
 if [ -z "${version}" ]; then
-    #docker tag gennyproject/wildfly:${version} gennyproject/wildfly:latest
+    docker tag gennyproject/wildfly:${version} gennyproject/wildfly:latest
     docker tag gennyproject/wildfly:${version} gennyproject/wildfly:${ver}
 fi
 
