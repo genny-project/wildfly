@@ -26,7 +26,7 @@
                 </log:logger>
                 <log:logger category="org.drools.compiler">
                     <log:level>
-                      <xsl:attribute name="name">${env.DROOLS_LOGLEVEL:INFO}</xsl:attribute>
+                      <xsl:attribute name="name">${env.DROOLS_LOGLEVEL:DEBUG}</xsl:attribute>
                     </log:level>
                 </log:logger>
                 <log:logger category="org.jboss.resteasy.resteasy_jaxrs.i18n">
