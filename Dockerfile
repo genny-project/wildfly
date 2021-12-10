@@ -13,6 +13,8 @@ ENV HOME /opt/jboss
 ENV WILDFLY_VERSION 22.0.1.Final
 ENV KEYCLOAK_VERSION 15.0.2
 ENV MYSQLCONNECTOR_VERSION 8.0.22
+ENV WILDFLY_LOG4J_VERSION 2.14.0
+ENV LOG4J_VERSION 2.15.0
 
 # Enables signals getting passed from startup script to JVM
 # ensuring clean shutdown when container is stopped.
@@ -69,6 +71,12 @@ RUN sed -i "s/mysql-connector-java/mysql-connector-java-$MYSQLCONNECTOR_VERSION/
 RUN sed -i 's/ExampleDS/gennyDS/g' $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN sed -i 's/ExampleDS/gennyDS/g' $JBOSS_HOME/standalone/configuration/standalone-ha.xml
 RUN sed -i 's/ExampleDS/gennyDS/g' $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
+
+############################ Log4j #############################
+# wildfly 22 use log4j 2.14.0, you will need change 
+RUN rm $JBOSS_HOME/modules/system/layers/base/org/apache/logging/log4j/api/main/log4j-api-${WILDFLY_LOG4J_VERSION}.jar
+RUN sed -i "s/${WILDFLY_LOG4J_VERSION}/${LOG4J_VERSION}/g" $JBOSS_HOME/modules/system/layers/base/org/apache/logging/log4j/api/main/module.xml
+ADD log4j-api-${LOG4J_VERSION}.jar $JBOSS_HOME/modules/system/layers/base/org/apache/logging/log4j/api/main/
 
 ############################ Security #############################
 #Add Keycloak Support
