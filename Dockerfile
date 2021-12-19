@@ -14,7 +14,7 @@ ENV WILDFLY_VERSION 22.0.1.Final
 ENV KEYCLOAK_VERSION 15.0.2
 ENV MYSQLCONNECTOR_VERSION 8.0.22
 ENV WILDFLY_LOG4J_VERSION 2.14.0
-ENV LOG4J_VERSION 2.16.0
+ENV LOG4J_VERSION 2.17.0
 
 # Enables signals getting passed from startup script to JVM
 # ensuring clean shutdown when container is stopped.
