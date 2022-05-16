@@ -34,6 +34,11 @@
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
                 </log:logger>
+                <log:logger category="org.apache.kafka.clients.consumer">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
                 <log:logger category="org.jboss.as.weld">
                     <log:level>
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
