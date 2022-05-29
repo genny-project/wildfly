@@ -39,6 +39,11 @@
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
                     </log:level>
                 </log:logger>
+                <log:logger category="io.vertx.core.impl.BlockedThreadChecker">
+                    <log:level>
+                      <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
+                    </log:level>
+                </log:logger>
                 <log:logger category="org.jboss.weld">
                     <log:level>
                       <xsl:attribute name="name">${env.LOGLEVEL:ERROR}</xsl:attribute>
