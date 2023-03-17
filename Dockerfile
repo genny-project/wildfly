@@ -2,8 +2,6 @@ FROM adoptopenjdk/openjdk11:alpine
 
 RUN mv /usr/glibc-compat/lib/ld-linux-x86-64.so.2 /usr/glibc-compat/lib/ld-linux-x86-64.so
 RUN ln -s /usr/glibc-compat/lib/ld-linux-x86-64.so /usr/glibc-compat/lib/ld-linux-x86-64.so.2
-RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.12/main > /etc/apk/repositories; \
-    echo http://mirror.yandex.ru/mirrors/alpine/v3.12/community >> /etc/apk/repositories
 RUN apk update && apk add jq && apk add curl && apk add bash && apk add xmlstarlet && apk add wget && apk add vim && apk add unzip && apk add sed
 RUN ln -s /bin/sed /usr/bin/sed
 RUN chmod a+x /usr/bin/sed
@@ -11,7 +9,7 @@ RUN chmod a+x /usr/bin/sed
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 ENV HOME /opt/jboss
 ENV WILDFLY_VERSION 22.0.1.Final
-ENV KEYCLOAK_VERSION 15.0.2
+ENV KEYCLOAK_VERSION 21.0.1
 ENV MYSQLCONNECTOR_VERSION 8.0.22
 ENV WILDFLY_LOG4J_VERSION 2.14.0
 ENV LOG4J_VERSION 2.17.1
